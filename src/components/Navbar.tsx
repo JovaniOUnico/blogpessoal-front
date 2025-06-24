@@ -1,26 +1,39 @@
-export default function Navbar() {
-  return (
-    <header className="flex w-full h-[4.875rem] px-[4.68rem] bg-indigo-900 ">
-      <nav className="flex flex-1 justify-between items-center">
-        <h1 className="uppercase text-white font-bold text-2xl">
-          Blog Pessoal
-        </h1>
-        <ul className="flex gap-4 text-white">
-          <li className="text-[1.125rem] hover:underline hover:cursor-pointer">
-            Postagens
-          </li>
-          <li className="text-lg hover:underline hover:cursor-pointer">
-            Temas
-          </li>
-          <li className="text-lg hover:underline hover:cursor-pointer">
-            Cadastrar Tema
-          </li>
-          <li className="text-lg hover:underline hover:cursor-pointer">
-            Perfil
-          </li>
-          <li className="text-lg hover:underline hover:cursor-pointer">Sair</li>
-        </ul>
-      </nav>
-    </header>
-  );
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { AuthContext } from "../contexts/AuthContext";
+
+function Navbar() {
+
+    const navigate = useNavigate();
+
+    const { handleLogout } = useContext(AuthContext)
+
+    function logout() {
+
+        handleLogout()
+        alert('O Usuário foi desconectado com sucesso!')
+        navigate('/')
+    }
+    
+    return (
+        <>
+            <div className='w-full bg-indigo-900 text-white
+                flex justify-center py-4'>
+
+                <div className="container flex justify-between text-lg">
+                    <Link to='/home' className="text-2xl font-bold">Blog Pessoal</Link>
+
+                    <div className='flex gap-4'>
+                        Postagens
+                        Temas
+                        Cadastrar tema
+                        Perfil
+                        <Link to='' onClick={logout} className='hover:underline'>Sair</Link>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
 }
+
+export default Navbar
