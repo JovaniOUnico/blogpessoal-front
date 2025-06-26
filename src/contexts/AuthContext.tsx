@@ -40,7 +40,7 @@ export function AuthProvider({ children }: AuthProvidersProps) {
         }
 
         setIsLoading(false)
-        
+
     }
 
     function handleLogout() {
