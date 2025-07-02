@@ -1,34 +1,46 @@
+import { FacebookLogo, InstagramLogo, LinkedinLogo } from '@phosphor-icons/react'
+import { ReactNode, useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext'
 
-import {
-  LinkedinLogoIcon,
-  InstagramLogoIcon,
-  FacebookLogoIcon,
-} from "@phosphor-icons/react";
+function Footer() {
 
-export default function Footer() {
-  return (
-    <footer className="fixed bottom-0 left-0 flex w-full h-[8.125rem] flex-col justify-center items-center bg-indigo-900 gap-1">
-      <h1 className="font-bold text-white text-xl">
-        Blog Pessoal Generation | Copyright: 2025
-      </h1>
-      <p className="font-bold text-white font-semibold text-base">
-        Acesse nossas Redes Sociais
-      </p>
+    let data = new Date().getFullYear()
 
-      <div className="flex text-white gap-0.5">
-        <LinkedinLogoIcon
-          size={34}
-          className="hover:cursor-pointer hover:text-gray-400 transition ease-in"
-        />
-        <InstagramLogoIcon
-          size={34}
-          className="hover:cursor-pointer hover:text-gray-400 transition ease-in"
-        />
-        <FacebookLogoIcon
-          size={34}
-          className="hover:cursor-pointer hover:text-gray-400 transition ease-in"
-        />
-      </div>
-    </footer>
-  );
+    const { usuario } = useContext(AuthContext)
+
+    let component: ReactNode
+
+    if (usuario.token !== "") {
+
+        component = (
+
+            <div className="flex justify-center bg-indigo-900 text-white">
+                <div className="container flex flex-col items-center py-4">
+                    <p className='text-xl font-bold'>
+                        Blog Pessoal Generation | Copyright: {data}
+                    </p>
+                    <p className='text-lg'>Acesse nossas redes sociais</p>
+                    <div className='flex gap-2'>
+                        <a href="https://www.linkedin.com/school/generationbrasil" target="_blank">
+                            <LinkedinLogo size={48} weight='bold' />
+                        </a>
+                        <a href="https://www.instagram.com/generationbrasil" target="_blank">
+                            <InstagramLogo size={48} weight='bold' />
+                        </a>
+                        <a href="https://www.facebook.com/generationbrasil" target="_blank">
+                            <FacebookLogo size={48} weight='bold' />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        )
+    }
+    return (
+        <>
+            { component }
+        </>
+    )
 }
+
+export default Footer
